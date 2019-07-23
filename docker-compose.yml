@@ -1,0 +1,16 @@
+version: '2'
+services:
+  indiserver:
+    image: bendedknee/indiserver:armhf-1.7.9
+    container_name: indiserver
+    command: indi_asi_ccd indi_celestron_gps
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - config:/root/.indi
+    ports:
+      - 7624:7624 
+volumes:
+  config:
